@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Fundus</string>
+    <string name="medical_Number">Enter your MR Number</string>
+    <string name="next">Next</string>
+    <string name="new_user">New User</string>
+    <string name="name">Name</string>
+    <string name="age">Age</string>
+    <string name="medical_history">Medical History</string>
+    <string name="update">Update</string>
+    <string name="phone_Number">Phone</string>
+    <string name="email">E-Mail</string>
+    <string name="register">Register</string>
+    <string name="choose_The_Eye">Choose the Eye</string>
+    <string name="left_Eye">Left Eye</string>
+    <string name="right_Eye">Right Eye</string>
+    <string name="save">Save</string>
+</resources>
