@@ -2,6 +2,7 @@ package com.sample.fundus;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
@@ -10,15 +11,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 public class registerNewUser extends AppCompatActivity {
-
-    public EditText name;
-    public EditText age;
-    public EditText phone;
-    public EditText email;
 
 
     @Override
@@ -29,23 +27,35 @@ public class registerNewUser extends AppCompatActivity {
     }
 
     public void addNewUser(View view) {
-        name=findViewById(R.id.name);
-        age=findViewById(R.id.age);
-        phone=findViewById(R.id.phone);
-        email=findViewById(R.id.email);
+       EditText name=findViewById(R.id.name);
+        EditText age=findViewById(R.id.age);
+        EditText phone=findViewById(R.id.phone);
+        EditText email=findViewById(R.id.email);
+        File file= null;
+        String Name = name.getText().toString() + "/n";
+        String Age = age.getText().toString()+"/n";
+        String Phone = phone.getText().toString()+"/n";
+        String Email = email.getText().toString()+"/n";
+
+        FileOutputStream fileOutputStream = null;
         try {
-            FileOutputStream fileout=openFileOutput("mrnumber.txt", MODE_PRIVATE);
-            OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-            outputWriter.write("Name :" + name.getText().toString() + "/n" +
-                    "Age :" + age.getText().toString() + "/n" +
-                    "Phone Number :" + phone.getText().toString() + "/n" +
-                    "E-Mail :" + email.getText().toString() + "/n");
-            outputWriter.close();
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            Name = name + " ";
+            file = getFilesDir();
+            fileOutputStream = openFileOutput("201209001.txt", Context.MODE_PRIVATE); //MODE PRIVATE
+            fileOutputStream.write(Name.getBytes());
+            fileOutputStream.write(Age.getBytes());
+            fileOutputStream.write(Phone.getBytes());
+            fileOutputStream.write(Email.getBytes());
+            Toast.makeText(this, "Successfully Saved \n" + "Path --" + file + "\tCode.txt", Toast.LENGTH_SHORT).show();
+            return;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                fileOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         Intent intent = new Intent(this,camera.class);
         startActivity(intent);

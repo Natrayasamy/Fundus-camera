@@ -2,9 +2,13 @@ package com.sample.fundus;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -19,23 +23,16 @@ public class patientDetails extends AppCompatActivity {
         setContentView(R.layout.activity_patient_details);
         TextView display = findViewById(R.id.Display);
 
-
         try {
-            FileInputStream fileIn = openFileInput("mrnumber.txt");
-            InputStreamReader InputRead = new InputStreamReader(fileIn);
-
-            char[] inputBuffer = new char[READ_BLOCK_SIZE];
-            String s = "";
-            int charRead;
-
-            while ((charRead = InputRead.read(inputBuffer)) > 0) {
-                // char to string conversion
-                String readstring = String.copyValueOf(inputBuffer, 0, charRead);
-                s += readstring;
+            FileInputStream fileInputStream = openFileInput("201209001.txt");
+            int read = -1;
+            StringBuffer buffer = new StringBuffer();
+            while ((read = fileInputStream.read()) != -1) {
+                buffer.append((char) read);
             }
-            InputRead.close();
-            display.setText(s);
-
+            Log.d("201209001", buffer.toString());
+            String details = buffer.substring(0, buffer.indexOf(" "));
+            display.setText(details);
 
         } catch (Exception e) {
             e.printStackTrace();
